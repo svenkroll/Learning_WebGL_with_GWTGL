@@ -25,7 +25,9 @@ public class GWTGL3D implements EntryPoint {
     private WebGLRenderingContext glContext;
     private WebGLProgram shaderProgram;
     private int vertexPositionAttribute;
+    private int vertexColorAttribute;
     private WebGLBuffer vertexBuffer;
+    private WebGLBuffer vertexColorBuffer;
     private WebGLUniformLocation mvMatrixUniform;
     private WebGLUniformLocation pMatrixUniform;
 
@@ -120,6 +122,9 @@ public class GWTGL3D implements EntryPoint {
         vertexPositionAttribute = glContext.getAttribLocation(shaderProgram, "aVertexPosition");
         glContext.enableVertexAttribArray(vertexPositionAttribute);
 
+        vertexColorAttribute = glContext.getAttribLocation(shaderProgram, "aVertexColor");
+        glContext.enableVertexAttribArray(vertexColorAttribute);
+        
         pMatrixUniform = glContext.getUniformLocation(shaderProgram, "uPMatrix");
         mvMatrixUniform = glContext.getUniformLocation(shaderProgram, "uMVMatrix");
 	}
@@ -141,6 +146,10 @@ public class GWTGL3D implements EntryPoint {
         vertexBuffer = glContext.createBuffer();
         glContext.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, vertexBuffer);
         glContext.bufferData(WebGLRenderingContext.ARRAY_BUFFER, Float32Array.create(mesh.getVertices()), WebGLRenderingContext.STATIC_DRAW);
+        
+        vertexColorBuffer = glContext.createBuffer();
+        glContext.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, vertexColorBuffer);
+        glContext.bufferData(WebGLRenderingContext.ARRAY_BUFFER, Float32Array.create(mesh.getColors()), WebGLRenderingContext.STATIC_DRAW);
 	}
 	
 	private void mvPushMatrix() {
@@ -166,11 +175,14 @@ public class GWTGL3D implements EntryPoint {
 		GLMatrix.mat4Identity(mvMatrix);
 		
 		mvPushMatrix();
-		GLMatrix.mat4Translate(mvMatrix, -1.5f, 0.0f, -7.0f);
+		GLMatrix.mat4Translate(mvMatrix, 0f, 0.0f, -7.0f);
 		GLMatrix.mat4Rotate(mvMatrix, mesh.getRotationRad(), 0f, 1f, 0f);
         
         glContext.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, vertexBuffer);
         glContext.vertexAttribPointer(vertexPositionAttribute, mesh.getVertexBufferSize(), WebGLRenderingContext.FLOAT, false, 0, 0);
+        
+        glContext.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, vertexColorBuffer);
+        glContext.vertexAttribPointer(vertexColorAttribute, mesh.getColorBufferSize(), WebGLRenderingContext.FLOAT, false, 0, 0);
         
         glContext.uniformMatrix4fv(pMatrixUniform, false, pMatrix.getMat4());
         glContext.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix.getMat4());

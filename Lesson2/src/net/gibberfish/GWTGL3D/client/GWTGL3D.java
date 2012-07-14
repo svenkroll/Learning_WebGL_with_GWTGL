@@ -124,13 +124,13 @@ public class GWTGL3D implements EntryPoint {
 
 		GLMatrix.mat4Identity(mvMatrix);
 
-		GLMatrix.mat4Translate(mvMatrix, -1.5f, 0.0f, -7.0f);
+		GLMatrix.mat4Translate(mvMatrix, 0f, 0.0f, -7.0f);
         
         glContext.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, vertexBuffer);
         glContext.vertexAttribPointer(vertexPositionAttribute, mesh.getVertexBufferSize(), WebGLRenderingContext.FLOAT, false, 0, 0);
         
         glContext.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, vertexColorBuffer);
-        glContext.vertexAttribPointer(vertexColorAttribute, mesh.getColorBufferItems(), WebGLRenderingContext.FLOAT, false, 0, 0);
+        glContext.vertexAttribPointer(vertexColorAttribute, mesh.getColorBufferSize(), WebGLRenderingContext.FLOAT, false, 0, 0);
 
         glContext.uniformMatrix4fv(pMatrixUniform, false, pMatrix.getMat4());
         glContext.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix.getMat4());

@@ -3,9 +3,12 @@ package net.gibberfish.GWTGL3D.client;
 public class Mesh {
 
 	private float[] vertices;
+	private float[] colors;
 	private int vertexBufferSize;
     private int vertexBufferItems;
     private double rotation;
+    private int colorBufferSize;
+    private int colorBufferItems;
     
     public Mesh(){
     	rotation = 0;
@@ -29,6 +32,15 @@ public class Mesh {
         
         vertexBufferSize = 3;
         vertexBufferItems = 3;
+        
+        colors = new float[]{
+        		1.0f, 0.0f, 0.0f, 1.0f,
+                0.0f, 1.0f, 0.0f, 1.0f,
+                0.0f, 0.0f, 1.0f, 1.0f
+           };
+        
+        colorBufferItems = 3;
+        colorBufferSize = 4;
     }
 
     public void initPyramid(){
@@ -56,10 +68,45 @@ public class Mesh {
     	
     	vertexBufferSize = 3;
         vertexBufferItems = 12;
+        
+    	colors = new float[]{
+              // Front face
+              1.0f, 0.0f, 0.0f, 1.0f,
+              0.0f, 1.0f, 0.0f, 1.0f,
+              0.0f, 0.0f, 1.0f, 1.0f,
+              // Right face
+              1.0f, 0.0f, 0.0f, 1.0f,
+              0.0f, 0.0f, 1.0f, 1.0f,
+              0.0f, 1.0f, 0.0f, 1.0f,
+              // Back face
+              1.0f, 0.0f, 0.0f, 1.0f,
+              0.0f, 1.0f, 0.0f, 1.0f,
+              0.0f, 0.0f, 1.0f, 1.0f,
+              // Left face
+              1.0f, 0.0f, 0.0f, 1.0f,
+              0.0f, 0.0f, 1.0f, 1.0f,
+              0.0f, 1.0f, 0.0f, 1.0f
+    	};
+    	
+    	colorBufferItems = 12;
+        colorBufferSize = 4;
+    	
     }
     
 	public float[] getVertices() {
 		return vertices;
+	}
+	
+	public float[] getColors(){
+		return colors;
+	}
+
+	public int getColorBufferSize() {
+		return colorBufferSize;
+	}
+
+	public int getColorBufferItems() {
+		return colorBufferItems;
 	}
 
 	public int getVertexBufferSize() {
