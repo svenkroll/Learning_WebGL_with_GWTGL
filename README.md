@@ -1,2 +1,5 @@
-Learning_WebGL_Lesson_1_with_GWTGL
+Learning_WebGL_with_GWTGL
 ==================================
+
+http://gibberfish.net/learning-webgl-lesson-1-with-gwtgl/
+http://gibberfish.net/learning-webgl-lesson-4-with-gwtgl/

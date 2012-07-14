@@ -1,19 +1,9 @@
 package net.gibberfish.GWTGL3D.client;
 
-import com.google.gwt.core.client.JsArrayNumber;
-
 public final class GLMatrixMat4{
 
 	private float[] mat4;
 	private String name;
-	
-	public String getName() {
-		return name;
-	}
-
-	public float[] getMat4() {
-		return mat4;
-	}
 
 	/**
 	 * protected standard constructor as specified by
@@ -21,22 +11,19 @@ public final class GLMatrixMat4{
 	 */
 	public GLMatrixMat4(String Name) {
 		name = Name;
+		mat4 = GLMatrix.mat4Create(name);
 	}
 	
-	public void create(){
-		mat4 = unwrapArray(GLMatrix.mat4Create(name));			
+	public void update(float[] Mat4) {
+		mat4 = Mat4;
 	}
 	
-	private float[] unwrapArray(JsArrayNumber jsArray) {
-	    float[] result = new float[jsArray.length()];
-	    for(int i=0; i<jsArray.length();i++) {
-	      result[i]=(float) jsArray.get(i);
-	    }
-	    return result;
-	  }
+	public String getName() {
+		return name;
+	}
 
-	public void update(JsArrayNumber mat4Perspective) {
-		mat4 = unwrapArray(mat4Perspective);
+	public float[] getMat4() {
+		return mat4;
 	}
 
 	public void clone(GLMatrixMat4 mvMatrix) {

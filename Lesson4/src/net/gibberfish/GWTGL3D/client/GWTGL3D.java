@@ -64,11 +64,8 @@ public class GWTGL3D implements EntryPoint {
 	
 	private void initMatrices() {
 		mvMatrix = new GLMatrixMat4("mvMatrix");
-        mvMatrix.create();
+        pMatrix = new GLMatrixMat4("pMatrix");  
         
-        pMatrix = new GLMatrixMat4("pMatrix");
-        pMatrix.create();
-      
         mvMatrixStack = new Stack<GLMatrixMat4>(); 
 	}
 
@@ -164,13 +161,13 @@ public class GWTGL3D implements EntryPoint {
 		glContext.viewport(0, 0, 500, 500);
 		glContext.clear(WebGLRenderingContext.COLOR_BUFFER_BIT | WebGLRenderingContext.DEPTH_BUFFER_BIT);
 
-		pMatrix.update(GLMatrix.mat4Perspective(45, 500, 500, 0.1, 100.0, pMatrix.getName()));
+		GLMatrix.mat4Perspective(45, 500, 500, 0.1, 100.0, pMatrix);
 
-		mvMatrix.update(GLMatrix.mat4Identity(mvMatrix.getName()));
+		GLMatrix.mat4Identity(mvMatrix);
 		
 		mvPushMatrix();
-		mvMatrix.update(GLMatrix.mat4Translate(mvMatrix.getName(), 0.0f, 0.0f, -7.0f));
-		mvMatrix.update(GLMatrix.mat4Rotate(mvMatrix.getName(), mesh.getRotationRad(), 0f, 1f, 0f));
+		GLMatrix.mat4Translate(mvMatrix, -1.5f, 0.0f, -7.0f);
+		GLMatrix.mat4Rotate(mvMatrix, mesh.getRotationRad(), 0f, 1f, 0f);
         
         glContext.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, vertexBuffer);
         glContext.vertexAttribPointer(vertexPositionAttribute, mesh.getVertexBufferSize(), WebGLRenderingContext.FLOAT, false, 0, 0);
