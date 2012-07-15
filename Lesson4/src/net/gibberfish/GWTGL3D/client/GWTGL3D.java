@@ -35,7 +35,7 @@ public class GWTGL3D implements EntryPoint {
     private GLMatrixMat4 pMatrix;
     private Mesh mesh;
     private Timer loopTimer;
-    long lastTime, timeNow;
+    private long lastTime, timeNow;
     private Stack<GLMatrixMat4> mvMatrixStack;
 
 	/**
